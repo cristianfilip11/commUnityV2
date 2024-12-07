@@ -1,0 +1,19 @@
+/* TopicDetail.css */
+.topic-detail {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+}
+
+.comments {
+    margin-top: 20px;
+}
+
+.comment-list {
+    margin-bottom: 10px;
+    list-style-type: none;
+}

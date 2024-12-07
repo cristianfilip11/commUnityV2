@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import TopicList from "./Forum/TopicList";
 import CreateTopic from "./Forum/CreateTopic";
 import TopicDetail from "./Forum/TopicDetail";
+import './styles/index.css'
 
 const App = () => {
     return (

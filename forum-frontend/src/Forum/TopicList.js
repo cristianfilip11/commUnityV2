@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
+import './TopicList.css'
 
 import { Link } from "react-router-dom";
 const TopicList = () => {
@@ -23,7 +24,7 @@ const TopicList = () => {
     //console.log("dasda")
     return (
 
-        <div>
+        <div className="topics">
             <h1>Forum Topics</h1>
             <ul>
                 {topics.map((topic) => (

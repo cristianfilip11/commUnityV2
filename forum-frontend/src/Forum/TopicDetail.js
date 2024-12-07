@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../services/api";
-
+import './TopicDetail.css';
 const TopicDetail = () => {
     const { topicId } = useParams();
     const [topic, setTopic] = useState(null);
@@ -42,24 +42,30 @@ const TopicDetail = () => {
     const handleAddPost = async (e) => {
         e.preventDefault();
         try {
-            await api.post(`/topics/${topicId}/posts`, { content: newPost, author });
-            setNewPost("");
-            setAuthor("");
-            fetchPosts();
+            if(newPost && author){
+                await api.post(`/topics/${topicId}/posts`, { content: newPost, author });
+                setNewPost("");
+                setAuthor("");
+                fetchPosts();
+            }
+            else{
+                alert("Fields should not be empty!")
+            }
+
         } catch (error) {
             console.error("Error adding post:", error);
         }
     };
     //console.log(topic);
     return (
-        <div>
+        <div className="topic-detail">
             {topic && <h1>{topic.title} by {topic.author}</h1>}
             {topic && <h2>{topic.description}</h2>}
 
-            <h2>Comments</h2>
+            <h2 className="comments">Comments</h2>
             <ul>
                 {posts.map((post) => (
-                    <li key={post.id}>
+                    <li key={post.id} className="comment-list">
                         {post.content} by {post.author}
                     </li>
                 ))}

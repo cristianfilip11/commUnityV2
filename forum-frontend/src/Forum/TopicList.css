@@ -1,0 +1,29 @@
+/* TopicList.css */
+.topics {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+}
+
+.topics ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.topics li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.topics li:last-child {
+    border-bottom: none;
+}
+
+.topics li a {
+    font-size: 20px;
+    color: #007bff;
+}

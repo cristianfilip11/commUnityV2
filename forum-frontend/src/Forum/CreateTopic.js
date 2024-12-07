@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import api from "../services/api";
+import './CreateTopic.css';
 
 const CreateTopic = () => {
     const [title, setTitle] = useState("");
@@ -8,17 +9,23 @@ const CreateTopic = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await api.post("/topics", { title, author });
-            alert("Topic created successfully!");
-            setTitle("");
-            setAuthor("");
+            if(title && author){
+                await api.post("/topics", { title, author });
+                alert("Topic created successfully!");
+                setTitle("");
+                setAuthor("");
+            }
+            else{
+                alert("Fields should not be empty!")
+            }
+
         } catch (error) {
             console.error("Error creating topic:", error);
         }
     };
 
     return (
-        <div>
+        <div className="create-topic">
             <h1>Create a New Topic</h1>
             <form onSubmit={handleSubmit}>
                 <input
