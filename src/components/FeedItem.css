@@ -1,0 +1,110 @@
+.feed-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    background: #f9f9f9;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    transition: box-shadow 0.3s ease;
+}
+
+.feed-item:hover {
+    box-shadow: 10px 10px 20px 0px beige;;
+}
+
+.status-indicator {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Ensure correct class names here that match those in your component */
+.status-problemă-majoră .status-indicator { background-color: #e95d5a; }
+.status-problemă-mare .status-indicator { background-color: #f7a33c; }
+.status-problemă-mică .status-indicator { background-color: #fadd5c; }
+.status-rezolvat .status-indicator { background-color: #62b366; }
+
+.feed-item h3 {
+    display: flex;
+    align-items: center; /* Aligns the circle vertically with the text */
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+
+.feed-item h4 {
+    font-size: 1.1em;
+    color: #666;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.status.problemă-majoră { color: #e95d5a; }
+.status.problemă-mare { color: #f7a33c; }
+.status.problemă-mică { color: #fadd5c; }
+.status.rezolvat { color: #62b366; }
+
+.score {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.like-button, .dislike-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: 2px solid #ccc;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    outline: none;
+    transition: background-color 0.3s, border-color 0.3s;
+    color: #007bff; /* Blue color for the icon */
+  }
+  
+  .like-button:hover, .dislike-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .like-button.liked, .dislike-button.disliked {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+
+.rating {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.rating label {
+    margin-right: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.rating select {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1em;
+    background: white;
+    transition: border-color 0.3s ease;
+}
+
+.rating select:hover {
+    border-color: #888;
+}
