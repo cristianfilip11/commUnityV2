@@ -14,13 +14,13 @@ const TopicDetail = () => {
         fetchPosts();
     }, [topicId]);
 
-    console.log(topicId);
+    //console.log(topicId);
     const fetchTopic = async () => {
         try {
             const response = await api.get(`/topics/${topicId}`);
             setTopic(response.data);
             //console.log(response);
-            console.log("da");
+            //console.log("da");
             //console.log("Fetched topic:", response.data);
 
         } catch (error) {
@@ -32,6 +32,7 @@ const TopicDetail = () => {
         try {
             const response = await api.get(`/topics/${topicId}/posts`);
             setPosts(response.data);
+            //console.log(response);
 
         } catch (error) {
             console.error("Error fetching posts:", error);
@@ -49,12 +50,13 @@ const TopicDetail = () => {
             console.error("Error adding post:", error);
         }
     };
-
+    //console.log(topic);
     return (
         <div>
             {topic && <h1>{topic.title} by {topic.author}</h1>}
+            {topic && <h2>{topic.description}</h2>}
 
-            <h2>Posts</h2>
+            <h2>Comments</h2>
             <ul>
                 {posts.map((post) => (
                     <li key={post.id}>
@@ -75,7 +77,7 @@ const TopicDetail = () => {
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
                 />
-                <button type="submit">Add Post</button>
+                <button type="submit">Add Comment</button>
             </form>
         </div>
     );

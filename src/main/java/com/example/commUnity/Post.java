@@ -20,7 +20,6 @@ public class Post {
 
     public void setTopic(Topic topic) {
         this.topic = topic;
-
     }
 
     public void setAuthor(String author) {
