@@ -9,4 +9,5 @@
   display: flex; /* Permite elementelor să se alinieze pe orizontală */
   flex: 1; /* Ocupă tot spațiul disponibil */
   height: 100%; /* Înălțimea paginii */
+  margin: 4px;
 }

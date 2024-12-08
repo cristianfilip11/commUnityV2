@@ -4,6 +4,30 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const links = [
+  {
+    href: "https://fonts.googleapis.com",
+    rel: "preconnect",
+  },
+  {
+    href: "https://fonts.gstatic.com",
+    rel: "preconnect",
+    crossorigin: "true",
+  },
+  {
+    href: "https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Varela+Round&display=swap",
+    rel: "stylesheet",
+  },
+];
+
+links.forEach(({ href, rel, crossorigin }) => {
+  const link = document.createElement("link");
+  link.href = href;
+  link.rel = rel;
+  if (crossorigin) link.crossOrigin = crossorigin;
+  document.head.appendChild(link);
+});
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
