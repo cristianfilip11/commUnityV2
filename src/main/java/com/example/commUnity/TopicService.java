@@ -3,7 +3,7 @@ package com.example.commUnity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -11,6 +11,10 @@ import java.util.NoSuchElementException;
 public class TopicService {
 
     private final TopicRepository topicRepository;
+
+    public List<Topic> getTopicsOrderedByLikes() {
+        return topicRepository.findAllOrderedByLikes();
+    }
 
     @Autowired
     public TopicService(TopicRepository topicRepository) {
@@ -50,4 +54,20 @@ public class TopicService {
                 .orElseThrow(() -> new NoSuchElementException("Topic not found with id: " + id));
         topicRepository.delete(topic);
     }
+
+    // In TopicService.java
+
+    public void adjustLike(Long topicId, boolean isLike) {
+        Topic topic = topicRepository.findById(topicId)
+                .orElseThrow(() -> new NoSuchElementException("Topic not found with id: " + topicId));
+
+        if (isLike) {
+            topic.setLikes(topic.getLikes() + 1);
+        } else {
+            topic.setDislikes(topic.getDislikes() + 1);
+        }
+
+        topicRepository.save(topic);
+    }
+
 }

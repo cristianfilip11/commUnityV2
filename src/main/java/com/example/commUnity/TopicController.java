@@ -12,13 +12,16 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api/topics")
 public class TopicController {
 
-    private final TopicService topicService;
-
+    private   final TopicService topicService;
     @Autowired
     public TopicController(TopicService topicService) {
         this.topicService = topicService;
     }
-
+    @GetMapping("/ordered-by-likes")
+    public ResponseEntity<List<Topic>> getTopicsOrderedByLikes() {
+        List<Topic> topics = topicService.getTopicsOrderedByLikes();
+        return ResponseEntity.ok(topics);
+    }
     // Get all topics
     @GetMapping
     public ResponseEntity<List<Topic>> getAllTopics() {
@@ -42,6 +45,18 @@ public class TopicController {
     public ResponseEntity<Topic> createTopic(@RequestBody Topic topic) {
         Topic createdTopic = topicService.createTopic(topic);
         return ResponseEntity.ok(createdTopic);
+    }
+
+    @PostMapping("/{id}/like")
+    public ResponseEntity<Void> likeTopic(@PathVariable Long id) {
+        topicService.adjustLike(id, true); // Increment likes
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/dislike")
+    public ResponseEntity<Void> dislikeTopic(@PathVariable Long id) {
+        topicService.adjustLike(id, false); // Increment dislikes
+        return ResponseEntity.ok().build();
     }
 
     // Update an existing topic

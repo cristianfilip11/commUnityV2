@@ -4,9 +4,10 @@ import api from "../services/api"; // Using centralized API instance
 import './TopicDetail.css';
 import user_icon from './assets/user-icon.png';
 //import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import {faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRoad, faTrash, faLightbulb, faCar, faTree } from "@fortawesome/free-solid-svg-icons";
+
 
 const TopicDetail = () => {
     const { topicId } = useParams(); // Extract topicId from the route
@@ -84,10 +85,10 @@ const TopicDetail = () => {
             )}
             {topic && (
                 <div className="like-buttons">
-                    <button onClick={() => handleLike(true)}>Like</button>
+
+                    <FontAwesomeIcon onClick={() => handleLike(true)} icon={faThumbsUp} cursor="pointer"/>
                     <span>{topic.likes - topic.dislikes}</span>
-                    <button onClick={() => handleLike(false)}>Dislike</button>
-                    <FontAwesomeIcon icon={faThumbsUp}/>
+                    <FontAwesomeIcon onClick={() => handleLike(true)} icon={faThumbsDown} cursor="pointer"/>
                 </div>
             )}
             <h2 className="comments">Comments:</h2>

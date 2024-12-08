@@ -3,6 +3,8 @@ import api from "../services/api";
 import './TopicList.css'
 
 import { Link } from "react-router-dom";
+import {faThumbsUp} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 const TopicList = () => {
     const [topics, setTopics] = useState([]);
 
@@ -30,7 +32,8 @@ const TopicList = () => {
                 {topics.map((topic) => (
                     <li key={topic.id}>
 
-                        <Link to={`/topics/${topic.id}`}>{topic.title}</Link> by <strong>{topic.author}</strong> {topic.likes} {topic.created_at}
+                        <Link to={`/topics/${topic.id}`}>{topic.title}</Link> by <strong>{topic.author}</strong>
+                        <span> {topic.likes - topic.dislikes}</span> <FontAwesomeIcon icon={faThumbsUp}/>
                     </li>
                 ))}
             </ul>
