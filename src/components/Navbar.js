@@ -1,8 +1,7 @@
 import React from 'react';
-import './Navbar.css'; // sau module CSS: import styles from './Navbar.module.css';
+import './Navbar.css';
 
-const Navbar = ({ onLogoClick }) => {
-
+const Navbar = ({ onLogoClick, onReportClick }) => {
   return (
     <nav className="navbar">
       <div className="navbar-logo" onClick={onLogoClick}>
@@ -14,7 +13,9 @@ const Navbar = ({ onLogoClick }) => {
         <li><a href="#feed">Feed</a></li>
       </ul>
       <div className="navbar-cta">
-        <a href="#report" className="report-button">Semnalează problemă</a>
+        <button className="report-button" onClick={onReportClick}>
+          Semnalează problemă
+        </button>
       </div>
     </nav>
   );

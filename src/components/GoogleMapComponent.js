@@ -5,7 +5,7 @@ const containerStyle = {
   width: "70vw",
 };
 
-function GoogleMapComponent({ onBoundsChanged, problems, center }) {
+function GoogleMapComponent({ onBoundsChanged, problems, center, temporaryMarker, setTemporaryMarker }) {
   const mapRef = useRef(null);
 
   const onLoad = useCallback((map) => {
@@ -46,6 +46,12 @@ function GoogleMapComponent({ onBoundsChanged, problems, center }) {
     }
   }, [center]);
 
+  const handleDragEnd = (event) => {
+    if (setTemporaryMarker) {
+      setTemporaryMarker({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+    }
+  };
+
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
       <GoogleMap
@@ -58,6 +64,14 @@ function GoogleMapComponent({ onBoundsChanged, problems, center }) {
         {problems.map(problem => (
           <Marker key={problem.id} position={{ lat: problem.lat, lng: problem.lng }} />
         ))}
+        {temporaryMarker && <Marker
+            position={temporaryMarker}
+            draggable
+            onDragEnd={handleDragEnd} 
+            icon={{
+              url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png", // Marker galben
+            }}/>
+            }
       </GoogleMap>
     </LoadScript>
   );
