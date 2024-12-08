@@ -1,30 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../services/api";
+import api from "../services/api"; // Using centralized API instance
 import './TopicDetail.css';
+import user_icon from './assets/user-icon.png';
+//import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRoad, faTrash, faLightbulb, faCar, faTree } from "@fortawesome/free-solid-svg-icons";
+
 const TopicDetail = () => {
-    const { topicId } = useParams();
+    const { topicId } = useParams(); // Extract topicId from the route
     const [topic, setTopic] = useState(null);
     const [posts, setPosts] = useState([]);
     const [newPost, setNewPost] = useState("");
     const [author, setAuthor] = useState("");
+    const [error, setError] = useState(""); // State for handling errors
 
     useEffect(() => {
-        fetchTopic();
-        fetchPosts();
-    }, [topicId]);
+        fetchTopic(); // Fetch topic details
+        fetchPosts(); // Fetch associated posts
+    }, [topicId]); // Re-run effect when topicId changes
 
-    //console.log(topicId);
+    const handleLike = async (like) => {
+        try {
+            await api.post(`/topics/${topicId}/${like ? "like" : "dislike"}`);
+            if (like) {
+                setTopic({ ...topic, likes: topic.likes + 1 });
+            } else {
+                setTopic({ ...topic, dislikes: topic.dislikes + 1 });
+            }
+
+        } catch (err) {
+            setError("Error updating topic");
+            console.error(err);
+        }
+    };
+
     const fetchTopic = async () => {
         try {
             const response = await api.get(`/topics/${topicId}`);
             setTopic(response.data);
-            //console.log(response);
-            //console.log("da");
-            //console.log("Fetched topic:", response.data);
-
-        } catch (error) {
-            console.error("Error fetching topic:", error);
+        } catch (err) {
+            setError("Error fetching topic");
+            console.error(err);
         }
     };
 
@@ -32,44 +50,56 @@ const TopicDetail = () => {
         try {
             const response = await api.get(`/topics/${topicId}/posts`);
             setPosts(response.data);
-            //console.log(response);
-
-        } catch (error) {
-            console.error("Error fetching posts:", error);
+        } catch (err) {
+            setError("Error fetching posts");
+            console.error(err);
         }
     };
 
     const handleAddPost = async (e) => {
         e.preventDefault();
         try {
-            if(newPost && author){
+            if (newPost && author) {
                 await api.post(`/topics/${topicId}/posts`, { content: newPost, author });
                 setNewPost("");
                 setAuthor("");
-                fetchPosts();
+                fetchPosts(); // Refresh the list of posts
+            } else {
+                alert("Fields should not be empty!");
             }
-            else{
-                alert("Fields should not be empty!")
-            }
-
-        } catch (error) {
-            console.error("Error adding post:", error);
+        } catch (err) {
+            setError("Error adding post");
+            console.error(err);
         }
     };
-    //console.log(topic);
+
     return (
         <div className="topic-detail">
-            {topic && <h1>{topic.title} by {topic.author}</h1>}
-            {topic && <h2>{topic.description}</h2>}
-
-            <h2 className="comments">Comments</h2>
+            {error && <p className="error">{error}</p>}
+            {topic && (
+                <>
+                    <h1 className="title">{topic.title} by {topic.author}</h1>
+                    <p>{topic.description}</p>
+                </>
+            )}
+            {topic && (
+                <div className="like-buttons">
+                    <button onClick={() => handleLike(true)}>Like</button>
+                    <span>{topic.likes - topic.dislikes}</span>
+                    <button onClick={() => handleLike(false)}>Dislike</button>
+                    <FontAwesomeIcon icon={faThumbsUp}/>
+                </div>
+            )}
+            <h2 className="comments">Comments:</h2>
             <ul>
                 {posts.map((post) => (
                     <li key={post.id} className="comment-list">
-                        {post.content} by {post.author}
+                        <img src={user_icon} className="user-icon"/> <strong>{post.author}</strong><br/>
+                        {post.content}
                     </li>
                 ))}
             </ul>
+
             <form onSubmit={handleAddPost}>
                 <input
                     type="text"

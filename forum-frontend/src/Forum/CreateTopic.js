@@ -5,15 +5,17 @@ import './CreateTopic.css';
 const CreateTopic = () => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
+    const [description, setDescription] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if(title && author){
-                await api.post("/topics", { title, author });
+            if(title && author && description){
+                await api.post("/topics", { title, author, description });
                 alert("Topic created successfully!");
                 setTitle("");
                 setAuthor("");
+                setDescription("");
             }
             else{
                 alert("Fields should not be empty!")
@@ -39,6 +41,12 @@ const CreateTopic = () => {
                     placeholder="Author Name"
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                 />
                 <button type="submit">Create Topic</button>
             </form>

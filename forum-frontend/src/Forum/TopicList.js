@@ -12,7 +12,7 @@ const TopicList = () => {
 
     const fetchTopics = async () => {
         try {
-            const response = await api.get("/topics");
+            const response = await api.get("/topics/ordered-by-likes");
             console.log(response);
             setTopics(response.data);
         } catch (error) {
@@ -30,7 +30,7 @@ const TopicList = () => {
                 {topics.map((topic) => (
                     <li key={topic.id}>
 
-                        <Link to={`/topics/${topic.id}`}>{topic.title}</Link> by {topic.author}
+                        <Link to={`/topics/${topic.id}`}>{topic.title}</Link> by <strong>{topic.author}</strong> {topic.likes} {topic.created_at}
                     </li>
                 ))}
             </ul>

@@ -18,7 +18,6 @@
     padding: 10px;
     border-bottom: 1px solid #ccc;
 }
-
 .topics li:last-child {
     border-bottom: none;
 }
@@ -26,4 +25,56 @@
 .topics li a {
     font-size: 20px;
     color: #007bff;
+}
+
+/* TopicDetail.css */
+
+/* Container for Like and Dislike Buttons */
+.like-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Base Button Styling */
+.like-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Like Button Styling */
+.like-buttons .like-button {
+    background-color: #4caf50; /* Green */
+    color: white;
+}
+
+.like-buttons .like-button:hover {
+    background-color: #45a049;
+    transform: scale(1.1); /* Subtle grow effect */
+}
+
+/* Dislike Button Styling */
+.like-buttons .dislike-button {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.like-buttons .dislike-button:hover {
+    background-color: #d32f2f;
+    transform: scale(1.1); /* Subtle grow effect */
+}
+
+/* Score Display */
+.like-buttons span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+.user-icon{
+    height: 15px;
 }
